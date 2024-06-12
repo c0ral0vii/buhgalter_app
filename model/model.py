@@ -66,9 +66,25 @@ class Orders(Base):
 
     def update_limit(self, session):
         """Обновляет limit у заказа"""
+
         self.limit = sum(int(area.limit) for area in self.areas)
         session.add(self)
         session.commit()
+
+    def update_count(self, session):
+        '''Обновляем count у заказа'''
+
+        self.count = sum(int(area.limit) for area in self.areas)
+        session.add(self)
+        session.commit()
+
+    def check_complete(self, session):
+        '''Обновляем выполнение'''
+
+        if self.count >= self.limit:
+            self.status = 'Выполнено'
+            session.add(self)
+            session.commit()
 
 
 

@@ -106,7 +106,9 @@ def create_order(customer: str, type: str, city: list, area: dict):
             if areas_id:
                 order.areas.extend(areas_id)
             session.add(order)
+
             order.update_limit(session)
+
             session.commit()
             print(customer, area, city, type)
 
@@ -178,6 +180,19 @@ def get_order_info(id: int):
                                 }
                 print(order_info)
                 return order_info
+            return False
+        except Exception as e:
+            return False
+
+def change_order(id: int, data: int):
+    with Session() as session:
+        try:
+            order = session.query(Orders).filter_by(id=id).first()
+
+            if order:
+                session.commit()
+                return True
+
             return False
         except Exception as e:
             return False

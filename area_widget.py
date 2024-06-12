@@ -18,3 +18,8 @@ class AreaWidget(QWidget):
         count = self.ui.count_lineEdit.text()
 
         return {area_name: count}
+
+
+    def set_text(self, area_name: str, count: str | int):
+        self.ui.area_lineEdit.setText(area_name)
+        self.ui.count_lineEdit.setText(count)

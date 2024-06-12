@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from ui.order_info.order_info import Ui_CustomerWidget
 from model.orders import get_order_info
+from area_widget import AreaWidget
 
 class OrderInfoWidget(QWidget):
     def __init__(self, order_id: int):
@@ -22,4 +23,4 @@ class OrderInfoWidget(QWidget):
             return False
 
         self.ui.customer_lineEdit.setText(self.order_data.get('customer_name'))
-        self.ui.city_lineEdit.setText('1')
+        self.ui.city_lineEdit.setText(self.order_data.get('city'))
