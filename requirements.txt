@@ -1,0 +1,8 @@
+PySide6
+pyqt6
+pyside6-uic
+pyqt6-tools
+sys
+sqlalchemy
+sql
+pysqlite
