@@ -12,14 +12,26 @@ class AddOrderWidget(QWidget):
         self.ui = Ui_AddForm()
         self.ui.setupUi(self)
 
+        self.counter_id = 0
+
         self.ui.add_order_pushbutton.clicked.connect(self.add_order)
         self.ui.add_area_pushButton.clicked.connect(self.add_area)
 
-
+    @Slot()
     def add_area(self):
         '''Добавление региона к заказу'''
-        self.ui.verticalLayout_2.addWidget(AreaWidget())
-        
+
+        self.counter_id += 1
+        area_widget = AreaWidget(self.counter_id)
+        self.ui.verticalLayout_2.addWidget(area_widget)
+        area_widget.delete.connect(self.delete_area)
+
+    @Slot(int)
+    def delete_area(self, wid: int):
+        widget = self.sender()
+        self.ui.verticalLayout.removeWidget(widget)
+        widget.deleteLater()
+
     def add_order(self):
         '''Добавление заказа'''
 

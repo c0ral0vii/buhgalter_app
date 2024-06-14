@@ -15,10 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QFrame,
-    QHBoxLayout, QHeaderView, QMainWindow, QPushButton,
-    QSizePolicy, QStatusBar, QTableView, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
+    QHeaderView, QMainWindow, QPushButton, QSizePolicy,
+    QStatusBar, QTableView, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -34,14 +33,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.filter_comboBox = QComboBox(self.centralwidget)
-        self.filter_comboBox.addItem("")
-        self.filter_comboBox.addItem("")
-        self.filter_comboBox.addItem("")
-        self.filter_comboBox.setObjectName(u"filter_comboBox")
-
-        self.verticalLayout.addWidget(self.filter_comboBox)
-
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.all_orders_pushButton = QPushButton(self.centralwidget)
@@ -116,19 +107,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.filter_comboBox.setCurrentIndex(-1)
-
-
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u0411\u0443\u0445\u0433\u0430\u043b\u0442\u0435\u0440\u0438\u044f", None))
-        self.filter_comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"-\u041f\u043e \u0434\u0430\u0442\u0435", None))
-        self.filter_comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"-\u041f\u043e \u0433\u043e\u0440\u043e\u0434\u0443", None))
-        self.filter_comboBox.setItemText(2, QCoreApplication.translate("MainWindow", u"-\u041f\u043e \u0430\u043b\u0444\u0430\u0432\u0438\u0442\u0443", None))
-
-        self.filter_comboBox.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u043a\u0430", None))
         self.all_orders_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0441\u0435 \u0437\u0430\u043a\u0430\u0437\u044b", None))
         self.archive_button.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0440\u0445\u0438\u0432", None))
         self.order_limit_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0441\u0442\u0430\u0442\u043a\u0438", None))

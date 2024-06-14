@@ -25,31 +25,6 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QComboBox" name="filter_comboBox">
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="placeholderText">
-       <string>Сортировка</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>-По дате</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>-По городу</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>-По алфавиту</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QPushButton" name="all_orders_pushButton">

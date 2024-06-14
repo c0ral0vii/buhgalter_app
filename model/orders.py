@@ -19,9 +19,14 @@ def get_orders():
         
         ready_orders = []
         for order in orders:
+            order.update_limit(session)
+            order.update_count(session)
+            order.check_complete(session)
             order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit))
+
             ready_orders.append(order)
-        
+
+
         return ready_orders
 
 
@@ -78,8 +83,8 @@ def create_area(areas: dict):
         for area_name, area_count in areas.items():
             area = Area(
                 name=area_name,
-                count=0,
-                limit=area_count
+                count=area_count[0],
+                limit=area_count[-1]
                 )
             session.add(area)
             session.flush()
@@ -108,7 +113,8 @@ def create_order(customer: str, type: str, city: list, area: dict):
             session.add(order)
 
             order.update_limit(session)
-
+            order.update_count(session)
+            order.check_complete(session)
             session.commit()
             print(customer, area, city, type)
 
@@ -184,12 +190,25 @@ def get_order_info(id: int):
         except Exception as e:
             return False
 
-def change_order(id: int, data: int):
+def change_order(id: int, data: dict):
     with Session() as session:
         try:
             order = session.query(Orders).filter_by(id=id).first()
 
             if order:
+                order.customer.name = data.get('customer_name')
+                order.city = data.get('city')
+
+                for area in order.areas:
+                    for name, item in data.get('areas').items():
+                        if area.name == name:
+                            area.count = item[0]
+                            area.limit = item[1]
+                session.commit()
+                order.update_limit(session)
+                order.update_limit(session)
+                order.check_complete(session)
+
                 session.commit()
                 return True
 
