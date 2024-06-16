@@ -91,7 +91,7 @@ class Ui_AddForm(object):
         self.scrollArea.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 607, 135))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 607, 98))
         self.horizontalLayout_4 = QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.verticalLayout_2 = QVBoxLayout()
@@ -113,6 +113,12 @@ class Ui_AddForm(object):
         self.add_order_pushbutton.setObjectName(u"add_order_pushbutton")
 
         self.verticalLayout.addWidget(self.add_order_pushbutton)
+
+        self.status = QLabel(AddForm)
+        self.status.setObjectName(u"status")
+        self.status.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout.addWidget(self.status)
 
 
         self.retranslateUi(AddForm)
@@ -138,5 +144,6 @@ class Ui_AddForm(object):
         self.city_lineEdit.setPlaceholderText(QCoreApplication.translate("AddForm", u"\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u0433\u043e\u0440\u043e\u0434", None))
         self.add_area_pushButton.setText(QCoreApplication.translate("AddForm", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0440\u0430\u0439\u043e\u043d", None))
         self.add_order_pushbutton.setText(QCoreApplication.translate("AddForm", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.status.setText(QCoreApplication.translate("AddForm", u"\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0438", None))
     # retranslateUi
 

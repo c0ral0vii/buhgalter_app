@@ -5,6 +5,8 @@ from model.orders import get_order_info, change_order
 from area_widget import AreaWidget
 
 class OrderInfoWidget(QWidget):
+    order_info_changed = Signal(bool)
+
     def __init__(self, order_id: int):
         super(OrderInfoWidget, self).__init__()
 
@@ -25,6 +27,7 @@ class OrderInfoWidget(QWidget):
         '''Лэйбел заказа'''
 
         if not self.order_data:
+            self.ui.status.setText('Данные заказа не были подгружены, попробуйте ещё раз')
             return False
 
         self.ui.date_layer.setText(self.order_data.get('datetime')[:16])
@@ -32,8 +35,9 @@ class OrderInfoWidget(QWidget):
         self.ui.city_lineEdit.setText(self.order_data.get('city')[0])
         self.ui.status_label.setText(self.order_data.get('status'))
         self.ui.type_label.setText(self.order_data.get('type'))
+        self.ui.status.setText('Данные заказа загружены')
 
-
+    @Slot()
     def get_changes(self):
         customer_name = self.ui.customer_lineEdit.text()
         city = self.ui.city_lineEdit.text()
@@ -46,9 +50,12 @@ class OrderInfoWidget(QWidget):
                 all_area.update(widget.get_text())
 
         data = {'customer_name': customer_name, 'city': city, 'areas': all_area}
-        print(data)
-        change_order(id=self.order_id, data=data)
-
+        try:
+            change_order(id=self.order_id, data=data)
+            self.ui.status.setText('Заказ изменён')
+            self.order_info_changed.emit(True)
+        except Exception as e:
+            self.ui.status.setText(f'Ошибка - {str(e)}')
     @Slot()
     def create_area(self):
         area = self.order_data.get('areas')

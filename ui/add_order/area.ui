@@ -54,7 +54,7 @@
       <item>
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Количество:</string>
+         <string>Выполнено</string>
         </property>
        </widget>
       </item>
@@ -71,7 +71,7 @@
       <item>
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>Выполнено</string>
+         <string>Лимит</string>
         </property>
        </widget>
       </item>

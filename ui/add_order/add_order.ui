@@ -120,7 +120,7 @@
         <x>0</x>
         <y>0</y>
         <width>607</width>
-        <height>135</height>
+        <height>98</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -146,6 +146,16 @@
     <widget class="QPushButton" name="add_order_pushbutton">
      <property name="text">
       <string>Добавить</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="status">
+     <property name="text">
+      <string>Информация о добавлении</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

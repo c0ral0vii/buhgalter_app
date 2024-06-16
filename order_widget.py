@@ -6,6 +6,8 @@ from area_widget import AreaWidget
     
 
 class AddOrderWidget(QWidget):
+    add_order_signal = Signal(bool)
+
     def __init__(self):
         super(AddOrderWidget, self).__init__()
 
@@ -32,6 +34,7 @@ class AddOrderWidget(QWidget):
         self.ui.verticalLayout.removeWidget(widget)
         widget.deleteLater()
 
+    @Slot()
     def add_order(self):
         '''Добавление заказа'''
 
@@ -49,6 +52,9 @@ class AddOrderWidget(QWidget):
 
 
         if self.type and self.customer and self.city and self.data:
+            self.ui.status.setText('Просходит добавление...')
             create_order(customer=self.customer, type=self.type, city=self.city, area=self.data)
+            self.ui.status.setText('Добавлен')
+            self.add_order_signal.emit(True)
         else:
-            raise 'Не все обязательные поля заполнены'
+            self.ui.status.setText('Не все обязательные поля заполнены')

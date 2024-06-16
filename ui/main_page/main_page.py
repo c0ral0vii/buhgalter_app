@@ -16,8 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
-    QHeaderView, QMainWindow, QPushButton, QSizePolicy,
-    QStatusBar, QTableView, QVBoxLayout, QWidget)
+    QHeaderView, QLabel, QMainWindow, QPushButton,
+    QSizePolicy, QStatusBar, QTableView, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -91,14 +92,18 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.reload_button)
 
-        self.archivate_order_button = QPushButton(self.centralwidget)
-        self.archivate_order_button.setObjectName(u"archivate_order_button")
-        self.archivate_order_button.setStyleSheet(u"")
-
-        self.horizontalLayout.addWidget(self.archivate_order_button)
-
 
         self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.status = QLabel(self.centralwidget)
+        self.status.setObjectName(u"status")
+        font1 = QFont()
+        font1.setPointSize(16)
+        font1.setBold(True)
+        self.status.setFont(font1)
+        self.status.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout.addWidget(self.status)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
@@ -119,6 +124,6 @@ class Ui_MainWindow(object):
         self.stop_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0430\u0442\u0443\u0441 \u0437\u0430\u043a\u0430\u0437\u0430", None))
         self.delete_order_button.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043a\u0430\u0437", None))
         self.reload_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c", None))
-        self.archivate_order_button.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0440\u0445\u0438\u0432\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
+        self.status.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0443\u0442 \u0431\u0443\u0434\u0443\u0442 \u043e\u0442\u043e\u0431\u0440\u043e\u0436\u0430\u0442\u044c\u0441\u044f \u0432\u0430\u0448\u0438 \u0443\u0441\u043f\u0435\u0448\u043d\u044b\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f(\u0443\u0434\u0430\u043b\u0435\u043d\u0438\u0435, \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u0438 \u0442.\u0434.)", None))
     # retranslateUi
 

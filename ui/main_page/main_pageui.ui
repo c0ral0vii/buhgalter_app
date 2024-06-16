@@ -105,17 +105,23 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="archivate_order_button">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Архивировать</string>
-        </property>
-       </widget>
-      </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="status">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Тут будут отоброжаться ваши успешные действия(удаление, обновление и т.д.)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

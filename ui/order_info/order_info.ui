@@ -124,7 +124,7 @@
         <x>0</x>
         <y>0</y>
         <width>655</width>
-        <height>214</height>
+        <height>184</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -139,6 +139,22 @@
     <widget class="QPushButton" name="save_pushButton">
      <property name="text">
       <string>Сохранить</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="status">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Информация об изменении заказа</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

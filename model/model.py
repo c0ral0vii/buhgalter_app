@@ -81,10 +81,11 @@ class Orders(Base):
     def check_complete(self, session):
         '''Обновляем выполнение'''
 
-        if self.count >= self.limit:
-            self.status = 'Выполнено'
-            session.add(self)
-            session.commit()
+        if self.status != 'В архиве' or self.status != 'Пауза' or self.status == 'Стоп':
+            if self.count >= self.limit:
+                self.status = 'Выполнено'
+                session.add(self)
+                session.commit()
 
 
 

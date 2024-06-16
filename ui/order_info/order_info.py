@@ -115,7 +115,7 @@ class Ui_CustomerWidget(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 655, 214))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 655, 184))
         self.verticalLayout_4 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout = QVBoxLayout()
@@ -131,6 +131,16 @@ class Ui_CustomerWidget(object):
         self.save_pushButton.setObjectName(u"save_pushButton")
 
         self.verticalLayout_3.addWidget(self.save_pushButton)
+
+        self.status = QLabel(CustomerWidget)
+        self.status.setObjectName(u"status")
+        font1 = QFont()
+        font1.setPointSize(16)
+        font1.setBold(True)
+        self.status.setFont(font1)
+        self.status.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_3.addWidget(self.status)
 
 
         self.retranslateUi(CustomerWidget)
@@ -151,5 +161,6 @@ class Ui_CustomerWidget(object):
         self.type_label.setText(QCoreApplication.translate("CustomerWidget", u"\u0422\u0438\u043f", None))
         self.label_4.setText(QCoreApplication.translate("CustomerWidget", u"\u0413\u043e\u0440\u043e\u0434:", None))
         self.save_pushButton.setText(QCoreApplication.translate("CustomerWidget", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
+        self.status.setText(QCoreApplication.translate("CustomerWidget", u"\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e\u0431 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0438 \u0437\u0430\u043a\u0430\u0437\u0430", None))
     # retranslateUi
 
