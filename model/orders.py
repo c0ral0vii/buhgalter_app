@@ -7,7 +7,7 @@ def get_all_orders():
         orders = session.query(Orders).order_by(Orders.created_at.asc()).all()
         ready_orders = []
         for order in orders:
-            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit))
+            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit), order.comment)
             ready_orders.append(order)
         
         return ready_orders
@@ -22,7 +22,7 @@ def get_orders():
             order.update_limit(session)
             order.update_count(session)
             order.check_complete(session)
-            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit))
+            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit), order.comment)
 
             ready_orders.append(order)
 
@@ -36,7 +36,7 @@ def get_archive():
 
         ready_orders = []
         for order in orders:
-            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit))
+            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit), order.comment)
             ready_orders.append(order)
         
         return ready_orders

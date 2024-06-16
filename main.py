@@ -53,7 +53,7 @@ class Application(QMainWindow):
             self.stop_order.change_status_order.connect(self.reload)
 
     def add_header_tableView(self):
-        self.model.setHorizontalHeaderLabels(['Номер заказа', 'Заказчик', 'Статус', 'Тип', 'Город', 'Район', 'Количество', 'Лимит'])
+        self.model.setHorizontalHeaderLabels(['Номер заказа', 'Заказчик', 'Статус', 'Тип', 'Город', 'Район', 'Количество', 'Лимит', 'Комментарий'])
         self.ui.tableView.setShowGrid(True)
 
     def add_order(self):
