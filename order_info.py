@@ -1,4 +1,3 @@
-from curses.ascii import isdigit
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QWidget, QTreeView
 from PySide6.QtCore import Slot, Signal, QModelIndex, Qt
