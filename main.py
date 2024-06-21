@@ -8,9 +8,12 @@ from ui.main_page.main_page import Ui_MainWindow
 from order_widget import AddOrderWidget
 from stop_order import StopOrderWidget
 from order_info import OrderInfoWidget
+from cache_func import RedisCache
 
-from model.orders import get_all_orders, get_orders, delete_order, get_archive, archivate, get_order_info
+from model.orders import get_all_orders, get_orders, delete_order, get_archive, archivate, get_order_info, create_city, \
+    create_order
 from model.model import Orders, create_db
+
 
 
 class Application(QMainWindow):
@@ -53,7 +56,7 @@ class Application(QMainWindow):
             self.stop_order.change_status_order.connect(self.reload)
 
     def add_header_tableView(self):
-        self.model.setHorizontalHeaderLabels(['Номер заказа', 'Заказчик', 'Статус', 'Тип', 'Город', 'Район', 'Количество', 'Лимит', 'Комментарий'])
+        self.model.setHorizontalHeaderLabels(['Номер заказа', 'Заказчик', 'Статус', 'Количество', 'Лимит', 'Комментарий', 'Тип', 'Город', 'Район'])
         self.ui.tableView.setShowGrid(True)
 
     def add_order(self):
@@ -131,6 +134,7 @@ class Application(QMainWindow):
 
 if __name__ == '__main__':
     create_db()
+
     app = QApplication(sys.argv)
 
     window = Application(data=Orders)

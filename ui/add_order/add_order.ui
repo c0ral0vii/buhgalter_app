@@ -6,24 +6,131 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>627</width>
-    <height>421</height>
+    <width>1190</width>
+    <height>710</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <pointsize>20</pointsize>
+    <family>Arial</family>
+    <pointsize>-1</pointsize>
     <bold>true</bold>
    </font>
   </property>
   <property name="windowTitle">
    <string>Добавление заказа</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/* Общие стили */
+QWidget {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Заголовки */
+QLabel#headerLabel {
+    font-size: 32px;
+    font-weight: bold;
+    color: #66ccff;
+}
+
+/* Кнопки */
+QPushButton {
+    background-color: #4a4a4a;
+    color: #cccccc;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #666666;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+
+/* Поля ввода */
+QLineEdit, QTextEdit, QSpinBox, QDoubleSpinBox, QDateEdit {
+    background-color: #333333;
+    border: 1px solid #555555;
+    padding: 5px;
+    border-radius: 3px;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QLineEdit:focus, QTextEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QDateEdit:focus {
+    border-color: #66ccff;
+    outline: none;
+}
+
+/* Таблицы */
+QTableView {
+    background-color: #333333;
+    border: 1px solid #555555;
+    gridline-color: #555555;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QTableView::item {
+    padding: 5px;
+}
+
+QTableView::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d;
+}
+
+/* Меню */
+QMenuBar {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    border-bottom: 1px solid #555555;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QMenuBar::item {
+    padding: 5px 10px;
+}
+
+QMenuBar::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d;
+}
+
+QMenu {
+    background-color: #333333;
+    border: 1px solid #555555;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QMenu::item {
+    padding: 5px 20px;
+}
+
+QMenu::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Добавление заказчика</string>
+      <string>Добавление заказа</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -53,6 +160,16 @@
        <item>
         <property name="text">
          <string>Графити</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Большое графити</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Что угодно</string>
         </property>
        </item>
        <item>
@@ -101,6 +218,31 @@
     </layout>
    </item>
    <item>
+    <widget class="QPushButton" name="add_city_pushButton">
+     <property name="text">
+      <string>Добавить город</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Города:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="city">
+       <property name="placeholderText">
+        <string>Выберит город для добавления района</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
@@ -119,8 +261,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>607</width>
-        <height>98</height>
+        <width>1170</width>
+        <height>337</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">

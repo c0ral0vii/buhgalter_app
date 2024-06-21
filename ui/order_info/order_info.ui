@@ -6,20 +6,127 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>675</width>
-    <height>471</height>
+    <width>1102</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <pointsize>15</pointsize>
+    <family>Arial</family>
+    <pointsize>-1</pointsize>
     <bold>true</bold>
    </font>
   </property>
   <property name="windowTitle">
    <string>Информация о заказе</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <property name="styleSheet">
+   <string notr="true">/* Общие стили */
+QWidget {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Заголовки */
+QLabel#headerLabel {
+    font-size: 32px;
+    font-weight: bold;
+    color: #66ccff;
+}
+
+/* Кнопки */
+QPushButton {
+    background-color: #4a4a4a;
+    color: #cccccc;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #666666;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+
+/* Поля ввода */
+QLineEdit, QTextEdit, QSpinBox, QDoubleSpinBox, QDateEdit {
+    background-color: #333333;
+    border: 1px solid #555555;
+    padding: 5px;
+    border-radius: 3px;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QLineEdit:focus, QTextEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QDateEdit:focus {
+    border-color: #66ccff;
+    outline: none;
+}
+
+/* Таблицы */
+QTableView {
+    background-color: #333333;
+    border: 1px solid #555555;
+    gridline-color: #555555;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QTableView::item {
+    padding: 5px;
+}
+
+QTableView::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d;
+}
+
+/* Меню */
+QMenuBar {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    border-bottom: 1px solid #555555;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QMenuBar::item {
+    padding: 5px 10px;
+}
+
+QMenuBar::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d;
+}
+
+QMenu {
+    background-color: #333333;
+    border: 1px solid #555555;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QMenu::item {
+    padding: 5px 20px;
+}
+
+QMenu::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label_5">
      <property name="text">
@@ -100,39 +207,13 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Город:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="city_lineEdit"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="widgetResizable">
-      <bool>true</bool>
+    <widget class="QTreeView" name="cities_treeView">
+     <property name="editTriggers">
+      <set>QAbstractItemView::DoubleClicked</set>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>655</width>
-        <height>184</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout"/>
-       </item>
-      </layout>
-     </widget>
+     <attribute name="headerMinimumSectionSize">
+      <number>300</number>
+     </attribute>
     </widget>
    </item>
    <item>
@@ -146,7 +227,8 @@
     <widget class="QLabel" name="status">
      <property name="font">
       <font>
-       <pointsize>16</pointsize>
+       <family>Arial</family>
+       <pointsize>-1</pointsize>
        <bold>true</bold>
       </font>
      </property>

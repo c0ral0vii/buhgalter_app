@@ -4,10 +4,11 @@ from sqlalchemy import select, desc, asc
 
 def get_all_orders():
     with Session() as session:
-        orders = session.query(Orders).order_by(Orders.created_at.asc()).all()
+        orders = session.query(Orders).order_by(asc(Orders.created_at)).all()
+
         ready_orders = []
         for order in orders:
-            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit), order.comment)
+            order = (str(order.id), order.customer.name, order.status, str(order.count), str(order.limit), order.comment, order.type, ','.join([city.name for city in order.cities]), ','.join([area.name for city in order.cities for area in city.areas]))
             ready_orders.append(order)
         
         return ready_orders
@@ -22,7 +23,7 @@ def get_orders():
             order.update_limit(session)
             order.update_count(session)
             order.check_complete(session)
-            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit), order.comment)
+            order = (str(order.id), order.customer.name, order.status, str(order.count), str(order.limit), order.comment, order.type, ','.join([city.name for city in order.cities]), ','.join([area.name for city in order.cities for area in city.areas]))
 
             ready_orders.append(order)
 
@@ -36,7 +37,8 @@ def get_archive():
 
         ready_orders = []
         for order in orders:
-            order = (str(order.id), order.customer.name, order.status, order.type, order.cities[0].name, ','.join([area.name for area in order.areas]), str(order.count), str(order.limit), order.comment)
+            order = (str(order.id), order.customer.name, order.status, str(order.count), str(order.limit), order.comment, order.type, ','.join([city.name for city in order.cities]), ','.join([area.name for city in order.cities for area in city.areas]))
+
             ready_orders.append(order)
         
         return ready_orders
@@ -57,67 +59,59 @@ def get_or_create_customer(customer_name: str):
         return customer
 
 
-def get_or_create_city(citys: list):
+def create_city(city_name: str, areas: dict):
     with Session() as session:
-        all_cities = []
+        city = City(
+            name=city_name.replace(',', '')
+            )
+        session.add(city)
+        session.flush()
 
-        for city_name in citys:
-            city = session.execute(select(City).where(City.name == city_name)).scalar_one_or_none()
-            if city is None:
-                city = City(
-                    name=city_name
-                    )
-                session.add(city)
-                session.flush()  
-                session.commit()
-
-            all_cities.append(city)
-
-        return all_cities
-
-
-def create_area(areas: dict):
-    with Session() as session:
-        all_areas = []
-
-        for area_name, area_count in areas.items():
+        for name, count in areas.items():
             area = Area(
-                name=area_name,
-                count=area_count[0],
-                limit=area_count[-1]
-                )
+                name=name,
+                count=count[0],
+                limit=count[1]
+            )
             session.add(area)
             session.flush()
-            session.commit()
+            area.update_remainder(session)
 
-            all_areas.append(area)
-            
-        return all_areas
-    
+            city.areas.append(area)
 
-def create_order(customer: str, type: str, city: list, area: dict):
+        city.update_limit(session)
+        city.update_count(session)
+        city.update_remainder(session)
+        city.update_status(session)
+        session.commit()
+
+        return city
+
+
+def create_order(customer: str, type: str, data: dict):
     with Session() as session:
             customer_id = get_or_create_customer(customer_name=customer)
-            citys_id = get_or_create_city(citys=city)
-
-            if area is not None:
-                areas_id = create_area(areas=area)
+            all_cities = []
+            for name, area in data.items():
+                cities = create_city(city_name=name, areas=area)
+                all_cities.append(cities)
 
             order = Orders(
                 customer=customer_id,
                 type=type,
             )
-            order.cities.extend(citys_id)
-            if areas_id:
-                order.areas.extend(areas_id)
+
             session.add(order)
+            session.flush()
+            for city in all_cities:
+                order.cities.append(city)
 
             order.update_limit(session)
             order.update_count(session)
+            order.update_remainder(session)
             order.check_complete(session)
-            session.commit()
-            print(customer, area, city, type)
 
+            session.commit()
 
 def delete_order(id: int):
     with Session() as session:
@@ -177,41 +171,53 @@ def get_order_info(id: int):
             order = session.query(Orders).filter_by(id=id).first()
 
             if order:
+                cities = {}
+
+                for city in order.cities:
+                    cities[city.name] = {}
+                    cities[city.name].update({'Итого': [city.count, city.limit, city.remainder]})
+                    for area in city.areas:
+                        cities[city.name].update({area.name: [area.count, area.limit, area.remainder]})
+
                 order_info = {'customer_name': order.customer.name,
                                 'type': order.type,
                                 'datetime': order.created_at,
                                 'status': order.status,
-                                'city': [city.name for city in order.cities],
-                                'areas': {area.name: [area.count, area.limit] for area in order.areas},
+                                'cities': cities,
+                                'limit': order.limit,
+                                'count': order.count,
+                                'remainder': order.remainder,
                                 }
-                print(order_info)
                 return order_info
             return False
         except Exception as e:
             return False
 
-def change_order(id: int, data: dict):
+
+def change_order(id: int, data: dict, customer: str):
     with Session() as session:
         try:
             order = session.query(Orders).filter_by(id=id).first()
 
-            if order:
-                order.customer.name = data.get('customer_name')
-                order.city = data.get('city')
-
-                for area in order.areas:
-                    for name, item in data.get('areas').items():
-                        if area.name == name:
-                            area.count = item[0]
-                            area.limit = item[1]
-                session.commit()
-                order.update_limit(session)
-                order.update_limit(session)
-                order.check_complete(session)
-
-                session.commit()
-                return True
-
-            return False
+            if order and data:
+                for city in order.cities:
+                    find_city = data.get(city.name)
+                    for area in city.areas:
+                        find_area = find_city.get(area.name)
+                        if find_area:
+                            print(find_area[0])
+                            area.count = find_area[0]
+                            area.limit = find_area[1]
+                            area.update_remainder(session)
+                            city.update_count(session)
+                            city.update_limit(session)
+                            city.update_remainder(session)
+                            session.flush()
+            order.update_limit(session)
+            order.update_count(session)
+            order.update_remainder(session)
+            order.check_complete(session)
+            session.commit()
+            return True
         except Exception as e:
             return False

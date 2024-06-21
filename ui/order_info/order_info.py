@@ -15,25 +15,131 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
-    QPushButton, QScrollArea, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QTreeView, QVBoxLayout, QWidget)
 
 class Ui_CustomerWidget(object):
     def setupUi(self, CustomerWidget):
         if not CustomerWidget.objectName():
             CustomerWidget.setObjectName(u"CustomerWidget")
-        CustomerWidget.resize(675, 471)
+        CustomerWidget.resize(1102, 678)
         font = QFont()
-        font.setPointSize(15)
+        font.setFamilies([u"Arial"])
         font.setBold(True)
         CustomerWidget.setFont(font)
-        self.verticalLayout_3 = QVBoxLayout(CustomerWidget)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        CustomerWidget.setStyleSheet(u"/* \u041e\u0431\u0449\u0438\u0435 \u0441\u0442\u0438\u043b\u0438 */\n"
+"QWidget {\n"
+"    background-color: #2d2d2d;\n"
+"    color: #cccccc;\n"
+"    font-family: Arial, sans-serif;\n"
+"    font-size: 18px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"/* \u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0438 */\n"
+"QLabel#headerLabel {\n"
+"    font-size: 32px;\n"
+"    font-weight: bold;\n"
+"    color: #66ccff;\n"
+"}\n"
+"\n"
+"/* \u041a\u043d\u043e\u043f\u043a\u0438 */\n"
+"QPushButton {\n"
+"    background-color: #4a4a4a;\n"
+"    color: #cccccc;\n"
+"    border: none;\n"
+"    padding: 10px 20px;\n"
+"    font-size: 18px;\n"
+"    font-weight: bold;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #666666;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #333333;\n"
+"}\n"
+"\n"
+"/* \u041f\u043e\u043b\u044f \u0432\u0432\u043e\u0434\u0430 */\n"
+"QLineEdit, QTextEdit, QSpinBox, QDoubleSpinBox, QDateEdit {\n"
+"    background-color: #333333;\n"
+"    border: 1px solid #55555"
+                        "5;\n"
+"    padding: 5px;\n"
+"    border-radius: 3px;\n"
+"    color: #cccccc;\n"
+"    font-size: 18px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QLineEdit:focus, QTextEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QDateEdit:focus {\n"
+"    border-color: #66ccff;\n"
+"    outline: none;\n"
+"}\n"
+"\n"
+"/* \u0422\u0430\u0431\u043b\u0438\u0446\u044b */\n"
+"QTableView {\n"
+"    background-color: #333333;\n"
+"    border: 1px solid #555555;\n"
+"    gridline-color: #555555;\n"
+"    color: #cccccc;\n"
+"    font-size: 18px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QTableView::item {\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"QTableView::item:selected {\n"
+"    background-color: #66ccff;\n"
+"    color: #2d2d2d;\n"
+"}\n"
+"\n"
+"/* \u041c\u0435\u043d\u044e */\n"
+"QMenuBar {\n"
+"    background-color: #2d2d2d;\n"
+"    color: #cccccc;\n"
+"    border-bottom: 1px solid #555555;\n"
+"    font-size: 18px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QMenuBar::item {\n"
+"    padding: 5px 10px;\n"
+"}\n"
+"\n"
+"QMenuBar::item:selected {\n"
+" "
+                        "   background-color: #66ccff;\n"
+"    color: #2d2d2d;\n"
+"}\n"
+"\n"
+"QMenu {\n"
+"    background-color: #333333;\n"
+"    border: 1px solid #555555;\n"
+"    color: #cccccc;\n"
+"    font-size: 18px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"QMenu::item {\n"
+"    padding: 5px 20px;\n"
+"}\n"
+"\n"
+"QMenu::item:selected {\n"
+"    background-color: #66ccff;\n"
+"    color: #2d2d2d\n"
+"}")
+        self.verticalLayout = QVBoxLayout(CustomerWidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.label_5 = QLabel(CustomerWidget)
         self.label_5.setObjectName(u"label_5")
 
-        self.verticalLayout_3.addWidget(self.label_5)
+        self.verticalLayout.addWidget(self.label_5)
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
@@ -48,7 +154,7 @@ class Ui_CustomerWidget(object):
         self.horizontalLayout_5.addWidget(self.date_layer)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout_5)
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -63,7 +169,7 @@ class Ui_CustomerWidget(object):
         self.horizontalLayout.addWidget(self.customer_lineEdit)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -78,7 +184,7 @@ class Ui_CustomerWidget(object):
         self.horizontalLayout_2.addWidget(self.status_label)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -93,54 +199,26 @@ class Ui_CustomerWidget(object):
         self.horizontalLayout_3.addWidget(self.type_label)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.label_4 = QLabel(CustomerWidget)
-        self.label_4.setObjectName(u"label_4")
+        self.cities_treeView = QTreeView(CustomerWidget)
+        self.cities_treeView.setObjectName(u"cities_treeView")
+        self.cities_treeView.setEditTriggers(QAbstractItemView.DoubleClicked)
+        self.cities_treeView.header().setMinimumSectionSize(300)
 
-        self.horizontalLayout_4.addWidget(self.label_4)
-
-        self.city_lineEdit = QLineEdit(CustomerWidget)
-        self.city_lineEdit.setObjectName(u"city_lineEdit")
-
-        self.horizontalLayout_4.addWidget(self.city_lineEdit)
-
-
-        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
-
-        self.scrollArea = QScrollArea(CustomerWidget)
-        self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_2 = QWidget()
-        self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 655, 184))
-        self.verticalLayout_4 = QVBoxLayout(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
-
-        self.verticalLayout_4.addLayout(self.verticalLayout)
-
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
-
-        self.verticalLayout_3.addWidget(self.scrollArea)
+        self.verticalLayout.addWidget(self.cities_treeView)
 
         self.save_pushButton = QPushButton(CustomerWidget)
         self.save_pushButton.setObjectName(u"save_pushButton")
 
-        self.verticalLayout_3.addWidget(self.save_pushButton)
+        self.verticalLayout.addWidget(self.save_pushButton)
 
         self.status = QLabel(CustomerWidget)
         self.status.setObjectName(u"status")
-        font1 = QFont()
-        font1.setPointSize(16)
-        font1.setBold(True)
-        self.status.setFont(font1)
+        self.status.setFont(font)
         self.status.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_3.addWidget(self.status)
+        self.verticalLayout.addWidget(self.status)
 
 
         self.retranslateUi(CustomerWidget)
@@ -159,7 +237,6 @@ class Ui_CustomerWidget(object):
         self.status_label.setText(QCoreApplication.translate("CustomerWidget", u"\u0421\u0442\u0430\u0443\u0442\u0441", None))
         self.label_3.setText(QCoreApplication.translate("CustomerWidget", u"\u0422\u0438\u043f", None))
         self.type_label.setText(QCoreApplication.translate("CustomerWidget", u"\u0422\u0438\u043f", None))
-        self.label_4.setText(QCoreApplication.translate("CustomerWidget", u"\u0413\u043e\u0440\u043e\u0434:", None))
         self.save_pushButton.setText(QCoreApplication.translate("CustomerWidget", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.status.setText(QCoreApplication.translate("CustomerWidget", u"\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e\u0431 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0438 \u0437\u0430\u043a\u0430\u0437\u0430", None))
     # retranslateUi

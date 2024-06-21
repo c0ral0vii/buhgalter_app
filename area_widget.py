@@ -5,7 +5,7 @@ from PySide6.QtCore import Signal, Slot
 class AreaWidget(QWidget):
     delete = Signal(int)
 
-    def __init__(self, id: int, area_name: str = None, count: str = None, limit: str = None):
+    def __init__(self, id: int, area_name: str = None, count: str = None, limit: str = None, city_name: str = None):
         super(AreaWidget, self).__init__()
 
         self.ui = Ui_area_form()
