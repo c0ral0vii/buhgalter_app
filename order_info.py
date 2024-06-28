@@ -1,6 +1,7 @@
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QWidget, QTreeView
-from PySide6.QtCore import Slot, Signal, QModelIndex, Qt
+from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import Slot, Signal
+from order_widget import AddOrderWidget
 from ui.order_info.order_info import Ui_CustomerWidget
 from model.orders import get_order_info, change_order
 
@@ -12,16 +13,31 @@ class OrderInfoWidget(QWidget):
         super(OrderInfoWidget, self).__init__()
 
         self.ui = Ui_CustomerWidget()
-        
+
         self.order_id = order_id
 
         self.ui.setupUi(self)
 
         self.ui.save_pushButton.clicked.connect(self.save)
+        self.ui.change_order_pushButton.clicked.connect(self.change_order_ui)
 
         self.model = QStandardItemModel()
 
         self.get_order_data()
+
+    def change_order_ui(self):
+        self.add_order = AddOrderWidget(order_id=self.order_id)
+        self.add_order.show()
+        self.add_order.change_order_signal.connect(self.change_order)
+
+    @Slot(bool)
+    def change_order(self):
+        try:
+            self.clear_tree()
+            self.get_order_data()
+            self.ui.status.setText('Заказ изменён')
+        except Exception as e:
+            self.ui.status.setText(f'Ошибка - {e}')
 
     def get_order_data(self):
         try:
@@ -32,12 +48,13 @@ class OrderInfoWidget(QWidget):
             self.ui.status.setText('Заказ загружен')
         except Exception as e:
             print(e)
-    
+
     def set_laybels(self):
         self.ui.date_layer.setText(self.order_data.get('datetime')[0:16])
         self.ui.customer_lineEdit.setText(self.order_data.get('customer_name'))
-        self.ui.type_label.setText(self.order_data.get('type'))
-        self.ui.status_label.setText(self.order_data.get('status'))
+        self.ui.type_comboBox.setCurrentText(self.order_data.get('type'))
+        self.ui.status_comboBox.setCurrentText(self.order_data.get('status'))
+        self.ui.lineEdit.setText(self.order_data.get('comment'))
 
     def set_cities_tree(self):
         self.model.setHorizontalHeaderLabels(["Город/Район", 'Количество', 'Лимит', 'Остатки'])
@@ -73,7 +90,6 @@ class OrderInfoWidget(QWidget):
         root = self.ui.cities_treeView.model().invisibleRootItem()
         data = {}
         counts = []
-        current_city = None
         current_district = None
 
         for item in self.iterItems(root):
@@ -82,10 +98,10 @@ class OrderInfoWidget(QWidget):
             if parent_of_child is not None:
                 print(item.text())
                 current_city = parent_of_child.text()
-                
+
                 if current_city not in data:
                     data[current_city] = {}
-                
+
                 if not any(i.isdigit() for i in item.text()):
                     current_district = item.text()
                     print(current_district)
@@ -101,18 +117,21 @@ class OrderInfoWidget(QWidget):
                         counts.clear()
         print(data)
         return data
-    
+
     def clear_tree(self):
         self.model.clear()
 
     def save(self):
         data = self.get_data()
         customer_name = self.ui.customer_lineEdit.text()
+        status = self.ui.status_comboBox.currentText()
+        type = self.ui.type_comboBox.currentText()
+        comment = self.ui.lineEdit.text()
 
         self.ui.status.setText('Происходит добавление')
         try:
-            change_order(id=self.order_id, data=data, customer=customer_name)
-            
+            change_order(id=self.order_id, data=data, customer=customer_name, status=status, type=type, comment=comment)
+
             self.ui.status.setText('Заказ изменён')
             self.clear_tree()
             self.get_order_data()

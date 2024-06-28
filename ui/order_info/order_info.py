@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHBoxLayout, QHeaderView,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QTreeView, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QHBoxLayout,
+    QHeaderView, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QTreeView, QVBoxLayout, QWidget)
 
 class Ui_CustomerWidget(object):
     def setupUi(self, CustomerWidget):
@@ -178,10 +178,15 @@ class Ui_CustomerWidget(object):
 
         self.horizontalLayout_2.addWidget(self.label_2)
 
-        self.status_label = QLabel(CustomerWidget)
-        self.status_label.setObjectName(u"status_label")
+        self.status_comboBox = QComboBox(CustomerWidget)
+        self.status_comboBox.addItem("")
+        self.status_comboBox.addItem("")
+        self.status_comboBox.addItem("")
+        self.status_comboBox.addItem("")
+        self.status_comboBox.addItem("")
+        self.status_comboBox.setObjectName(u"status_comboBox")
 
-        self.horizontalLayout_2.addWidget(self.status_label)
+        self.horizontalLayout_2.addWidget(self.status_comboBox)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -193,13 +198,22 @@ class Ui_CustomerWidget(object):
 
         self.horizontalLayout_3.addWidget(self.label_3)
 
-        self.type_label = QLabel(CustomerWidget)
-        self.type_label.setObjectName(u"type_label")
+        self.type_comboBox = QComboBox(CustomerWidget)
+        self.type_comboBox.addItem("")
+        self.type_comboBox.addItem("")
+        self.type_comboBox.addItem("")
+        self.type_comboBox.addItem("")
+        self.type_comboBox.setObjectName(u"type_comboBox")
 
-        self.horizontalLayout_3.addWidget(self.type_label)
+        self.horizontalLayout_3.addWidget(self.type_comboBox)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
+
+        self.lineEdit = QLineEdit(CustomerWidget)
+        self.lineEdit.setObjectName(u"lineEdit")
+
+        self.verticalLayout.addWidget(self.lineEdit)
 
         self.cities_treeView = QTreeView(CustomerWidget)
         self.cities_treeView.setObjectName(u"cities_treeView")
@@ -207,6 +221,11 @@ class Ui_CustomerWidget(object):
         self.cities_treeView.header().setMinimumSectionSize(300)
 
         self.verticalLayout.addWidget(self.cities_treeView)
+
+        self.change_order_pushButton = QPushButton(CustomerWidget)
+        self.change_order_pushButton.setObjectName(u"change_order_pushButton")
+
+        self.verticalLayout.addWidget(self.change_order_pushButton)
 
         self.save_pushButton = QPushButton(CustomerWidget)
         self.save_pushButton.setObjectName(u"save_pushButton")
@@ -234,9 +253,19 @@ class Ui_CustomerWidget(object):
         self.label.setText(QCoreApplication.translate("CustomerWidget", u"\u0417\u0430\u043a\u0430\u0437\u0447\u0438\u043a:", None))
         self.customer_lineEdit.setText("")
         self.label_2.setText(QCoreApplication.translate("CustomerWidget", u"\u0421\u0442\u0430\u0442\u0443\u0441:", None))
-        self.status_label.setText(QCoreApplication.translate("CustomerWidget", u"\u0421\u0442\u0430\u0443\u0442\u0441", None))
+        self.status_comboBox.setItemText(0, QCoreApplication.translate("CustomerWidget", u"\u0412\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442\u0441\u044f", None))
+        self.status_comboBox.setItemText(1, QCoreApplication.translate("CustomerWidget", u"\u0412\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u043e", None))
+        self.status_comboBox.setItemText(2, QCoreApplication.translate("CustomerWidget", u"\u0412 \u0430\u0440\u0445\u0438\u0432\u0435", None))
+        self.status_comboBox.setItemText(3, QCoreApplication.translate("CustomerWidget", u"\u041f\u0430\u0443\u0437\u0430", None))
+        self.status_comboBox.setItemText(4, QCoreApplication.translate("CustomerWidget", u"\u0421\u0442\u043e\u043f", None))
+
         self.label_3.setText(QCoreApplication.translate("CustomerWidget", u"\u0422\u0438\u043f", None))
-        self.type_label.setText(QCoreApplication.translate("CustomerWidget", u"\u0422\u0438\u043f", None))
+        self.type_comboBox.setItemText(0, QCoreApplication.translate("CustomerWidget", u"\u0411\u043e\u043b\u044c\u0448\u043e\u0435 \u0433\u0440\u0430\u0444\u0438\u0442\u0438", None))
+        self.type_comboBox.setItemText(1, QCoreApplication.translate("CustomerWidget", u"\u0427\u0442\u043e \u0443\u0433\u043e\u0434\u043d\u043e", None))
+        self.type_comboBox.setItemText(2, QCoreApplication.translate("CustomerWidget", u"\u0413\u0440\u0430\u0444\u0438\u0442\u0438", None))
+        self.type_comboBox.setItemText(3, QCoreApplication.translate("CustomerWidget", u"\u041d\u0430\u043a\u043b\u0435\u0439\u043a\u0438", None))
+
+        self.change_order_pushButton.setText(QCoreApplication.translate("CustomerWidget", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0437\u0430\u043a\u0430\u0437", None))
         self.save_pushButton.setText(QCoreApplication.translate("CustomerWidget", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.status.setText(QCoreApplication.translate("CustomerWidget", u"\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e\u0431 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0438 \u0437\u0430\u043a\u0430\u0437\u0430", None))
     # retranslateUi

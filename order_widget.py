@@ -4,11 +4,13 @@ from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Signal, Slot
 from model.orders import create_order
 from area_widget import AreaWidget
+from model.orders import get_order_info, add_areas, change_city
 
 class AddOrderWidget(QWidget):
     add_order_signal = Signal(bool)
+    change_order_signal = Signal(int)
 
-    def __init__(self):
+    def __init__(self, order_id: int = None):
         super(AddOrderWidget, self).__init__()
 
         self.ui = Ui_AddForm()
@@ -17,7 +19,12 @@ class AddOrderWidget(QWidget):
         self.counter_id = 0
         self.cache = RedisCache()
 
-        self.ui.add_order_pushbutton.clicked.connect(self.add_order)
+        if order_id is not None:
+            self.order_info = get_order_info(id=order_id)
+            self.set_labels()
+            self.ui.add_order_pushbutton.clicked.connect(self.save_change)
+        else:
+            self.ui.add_order_pushbutton.clicked.connect(self.add_order)
         self.ui.add_area_pushButton.clicked.connect(self.add_area)
         self.ui.add_city_pushButton.clicked.connect(self.add_city)
         self.ui.city.currentTextChanged.connect(self.save_to_cache)
@@ -60,7 +67,7 @@ class AddOrderWidget(QWidget):
     def save_to_cache(self):
         layout = self.ui.verticalLayout_2
         self.areas = {}
-
+        print(self.areas)
         for i in range(layout.count()):
             widget = layout.itemAt(i).widget()
             if isinstance(widget, AreaWidget):
@@ -85,6 +92,7 @@ class AddOrderWidget(QWidget):
             area_widget = AreaWidget(self.counter_id, area_name=name, count=str(item[0]), limit=str(item[1]))
             self.ui.verticalLayout_2.addWidget(area_widget)
             area_widget.delete.connect(self.delete_area)
+
 
     @Slot(int)
     def delete_area(self, wid: int):
@@ -119,3 +127,38 @@ class AddOrderWidget(QWidget):
             self.add_order_signal.emit(True)
         else:
             self.ui.status.setText('Не все обязательные поля заполнены')
+
+    def set_labels(self):
+        '''Вызов из информации заказа, для формирования изменений и добавления'''
+
+        self.ui.type_comboBox.setCurrentText(self.order_info.get('type'))
+        self.ui.order_lineEdit.setText(self.order_info.get('customer_name'))
+        self.ui.add_order_pushbutton.setText('Изменить')
+        self.ui.add_order_pushbutton.clicked.connect(self.save_change)
+
+        for city, areas in self.order_info.get('cities').items():
+            self.ui.city.addItem(city)
+            self.ui.city.setCurrentText(city)
+            areas.pop('Итого')
+            self.cache.add(key=city, value=areas)
+
+        self.refresh_areas()
+
+    @Slot()
+    def save_change(self):
+        layout = self.ui.verticalLayout_2
+        self.areas = {}
+
+        for i in range(layout.count()):
+            widget = layout.itemAt(i).widget()
+            if isinstance(widget, AreaWidget):
+                self.areas.update(widget.get_text())
+
+        self.cache.add(key=self.current_city, value=self.areas)
+        self.data = self.cache.get_all()
+        print(self.data)
+        add_areas(id=self.order_info.get('id'), data=self.data)
+
+        self.change_order_signal.emit(True)
+        self.ui.status.setText('Заказ изменён')
+

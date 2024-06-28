@@ -209,6 +209,13 @@ QMenu::item:selected {
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="unload_order_pushButton">
+        <property name="text">
+         <string>Выгрузить заказ</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="reload_button">
         <property name="text">
          <string>Перезагрузить</string>

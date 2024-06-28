@@ -150,6 +150,23 @@ class City(Base):
         session.add(self)
         session.commit()
 
+    def update_areas(self, new_areas):
+        existing_areas = {area.name: area for area in self.areas}
+        for area_name, count in new_areas.items():
+            if area_name in existing_areas:
+                # Обновляем существующий район
+                area = existing_areas[area_name]
+                area.count = count[0]
+                area.limit = count[1]
+            else:
+                # Создаем новый район
+                area = Area(name=area_name, count=count[0], limit=count[1])
+                self.areas.append(area)
+
+        # Удаляем районы, которые не были найдены в новых данных
+        for area in self.areas:
+            if area.name not in new_areas:
+                self.areas.remove(area)
 
 class Area(Base):
     __tablename__ = 'areas'

@@ -3,12 +3,15 @@ import json
 class RedisCache:
     def __init__(self):
         self.cache = {}
-        self.get_all()
-        self.clear_cache()
 
     def add(self, key, value):
         if len(key) >= 2:
             self.cache.update({key: value})
+            return True
+
+    def add_new(self, key, value):
+        if len(key) >= 2:
+            self.cache.update({key: {'new_values': value}})
             return True
 
     def get(self, key):

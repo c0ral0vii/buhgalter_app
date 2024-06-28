@@ -180,10 +180,32 @@ QMenu::item:selected {
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="status_label">
-       <property name="text">
-        <string>Стаутс</string>
-       </property>
+      <widget class="QComboBox" name="status_comboBox">
+       <item>
+        <property name="text">
+         <string>Выполняется</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Выполнено</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>В архиве</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Пауза</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Стоп</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -198,13 +220,33 @@ QMenu::item:selected {
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="type_label">
-       <property name="text">
-        <string>Тип</string>
-       </property>
+      <widget class="QComboBox" name="type_comboBox">
+       <item>
+        <property name="text">
+         <string>Большое графити</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Что угодно</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Графити</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Наклейки</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lineEdit"/>
    </item>
    <item>
     <widget class="QTreeView" name="cities_treeView">
@@ -214,6 +256,13 @@ QMenu::item:selected {
      <attribute name="headerMinimumSectionSize">
       <number>300</number>
      </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="change_order_pushButton">
+     <property name="text">
+      <string>Изменить заказ</string>
+     </property>
     </widget>
    </item>
    <item>
