@@ -22,7 +22,11 @@ class AddOrderWidget(QWidget):
         if order_id is not None:
             self.order_info = get_order_info(id=order_id)
             self.set_labels()
+            self.ui.city.currentTextChanged.connect(self.save_to_cache)
             self.ui.add_order_pushbutton.clicked.connect(self.save_change)
+            self.ui.add_area_pushButton.clicked.connect(self.add_area)
+            self.ui.add_city_pushButton.clicked.connect(self.add_city)
+
             self.ui.label.setText(f'Изменение заказа {self.order_info.get("id")}')
 
             self.ui.label_2.deleteLater()
