@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Signal, Slot
 from model.orders import create_order
 from area_widget import AreaWidget
-from model.orders import get_order_info, add_areas, change_city
+from model.orders import get_order_info, add_areas
 
 class AddOrderWidget(QWidget):
     add_order_signal = Signal(bool)
@@ -23,11 +23,18 @@ class AddOrderWidget(QWidget):
             self.order_info = get_order_info(id=order_id)
             self.set_labels()
             self.ui.add_order_pushbutton.clicked.connect(self.save_change)
+            self.ui.label.setText(f'Изменение заказа {self.order_info.get("id")}')
+
+            self.ui.label_2.deleteLater()
+            self.ui.type_comboBox.deleteLater()
+            self.ui.order_lineEdit.deleteLater()
+            self.ui.label_3.deleteLater()
+
         else:
             self.ui.add_order_pushbutton.clicked.connect(self.add_order)
-        self.ui.add_area_pushButton.clicked.connect(self.add_area)
-        self.ui.add_city_pushButton.clicked.connect(self.add_city)
-        self.ui.city.currentTextChanged.connect(self.save_to_cache)
+            self.ui.add_area_pushButton.clicked.connect(self.add_area)
+            self.ui.add_city_pushButton.clicked.connect(self.add_city)
+            self.ui.city.currentTextChanged.connect(self.save_to_cache)
 
         self.current_city = self.ui.city.currentText()
 
@@ -48,6 +55,11 @@ class AddOrderWidget(QWidget):
     @Slot()
     def add_city(self):
         self.city_name = self.ui.city_lineEdit.text()
+
+        if self.cache.check_city(key=self.city_name) != None:
+            self.ui.status.setText('Город уже существует')
+            return
+
         if len(self.city_name) >= 2:
             self.ui.city.addItem(self.city_name)
             self.current_city = self.ui.city.currentText()
@@ -156,9 +168,8 @@ class AddOrderWidget(QWidget):
 
         self.cache.add(key=self.current_city, value=self.areas)
         self.data = self.cache.get_all()
-        print(self.data)
         add_areas(id=self.order_info.get('id'), data=self.data)
 
         self.change_order_signal.emit(True)
-        self.ui.status.setText('Заказ изменён')
+        self.ui.status.setText('Заказ изменён, проверьте прошлое меню..')
 

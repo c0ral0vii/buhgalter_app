@@ -74,55 +74,10 @@ class OrderInfoWidget(QWidget):
 
         self.ui.cities_treeView.expandAll()
 
-    def iterItems(self, root):
-        def recurse(parent):
-            for row in range(parent.rowCount()):
-                for column in range(parent.columnCount()):
-                    child = parent.child(row, column)
-                    if child is not None:
-                        yield child
-                        if child.hasChildren():
-                            yield from recurse(child)
-        if root is not None:
-            yield from recurse(root)
-
-    def get_data(self):
-        root = self.ui.cities_treeView.model().invisibleRootItem()
-        data = {}
-        counts = []
-        current_district = None
-
-        for item in self.iterItems(root):
-            parent_of_child = item.parent()
-
-            if parent_of_child is not None:
-                print(item.text())
-                current_city = parent_of_child.text()
-
-                if current_city not in data:
-                    data[current_city] = {}
-
-                if not any(i.isdigit() for i in item.text()):
-                    current_district = item.text()
-                    print(current_district)
-                    if current_district == 'Итого':
-                        continue
-                    if current_district not in data[current_city]:
-                        data[current_city][current_district] = []
-                else:
-                    counts.append(item.text())
-                    if len(counts) == 3:
-                        data[current_city][current_district] = counts[:]
-                        print(data)
-                        counts.clear()
-        print(data)
-        return data
-
     def clear_tree(self):
         self.model.clear()
 
     def save(self):
-        data = self.get_data()
         customer_name = self.ui.customer_lineEdit.text()
         status = self.ui.status_comboBox.currentText()
         type = self.ui.type_comboBox.currentText()
@@ -130,7 +85,7 @@ class OrderInfoWidget(QWidget):
 
         self.ui.status.setText('Происходит добавление')
         try:
-            change_order(id=self.order_id, data=data, customer=customer_name, status=status, type=type, comment=comment)
+            change_order(id=self.order_id, customer=customer_name, status=status, type=type, comment=comment)
 
             self.ui.status.setText('Заказ изменён')
             self.clear_tree()

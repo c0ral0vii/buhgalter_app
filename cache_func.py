@@ -4,6 +4,10 @@ class RedisCache:
     def __init__(self):
         self.cache = {}
 
+    def check_city(self, key):
+        check = self.cache.get(key, None)
+        return check
+
     def add(self, key, value):
         if len(key) >= 2:
             self.cache.update({key: value})

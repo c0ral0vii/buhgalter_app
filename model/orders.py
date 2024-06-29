@@ -203,33 +203,16 @@ def get_order_info(id: int):
             return False
 
 
-def change_order(id: int, data: dict, customer: str, status: str, type: str, comment: str):
+def change_order(id: int, customer: str, status: str, type: str, comment: str):
     with Session() as session:
         try:
             order = session.query(Orders).filter_by(id=id).first()
-            print(order.type, order.status)
-            if order and data:
-                for city in order.cities:
-                    find_city = data.get(city.name)
-                    for area in city.areas:
-                        find_area = find_city.get(area.name)
-                        if find_area:
-                            area.count = int(find_area[0])
-                            area.limit = int(find_area[1])
-                            area.update_remainder(session)
-                            city.update_count(session)
-                            city.update_limit(session)
-                            city.update_remainder(session)
-
-            order.update_limit(session)
-            order.update_count(session)
-            order.update_remainder(session)
-            order.check_complete(session)
 
             order.status = status
             order.type = type
             order.customer.name = customer
             order.comment = comment
+            refresh()
 
             session.commit()
 
@@ -256,6 +239,8 @@ def create_area(name: str, areas: list):
         except Exception as e:
             session.rollback()
             return False
+
+
 def change_city(id: int, city_name, areas):
     with Session() as session:
         try:
@@ -317,10 +302,6 @@ def add_areas(id: int, data: dict):
                     print(areas)
                     city = create_city(city_name=city_name, areas=areas, session=session)
                     order.cities.append(city)
-
-            # for city in order.cities:
-            #     if city.name not in data:
-            #         order.cities.remove(city)
 
             session.commit()
 
