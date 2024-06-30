@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>512</width>
+    <height>235</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Добавление типа</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Общие стили */
+QWidget {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Заголовки */
+QLabel#headerLabel {
+    font-size: 32px;
+    font-weight: bold;
+    color: #66ccff;
+}
+
+/* Кнопки */
+QPushButton {
+    background-color: #4a4a4a;
+    color: #cccccc;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #666666;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+
+/* Поля ввода */
+QLineEdit, QTextEdit, QSpinBox, QDoubleSpinBox, QDateEdit {
+    background-color: #333333;
+    border: 1px solid #555555;
+    padding: 5px;
+    border-radius: 3px;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QLineEdit:focus, QTextEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QDateEdit:focus {
+    border-color: #66ccff;
+    outline: none;
+}
+
+/* Таблицы */
+QTableView {
+    background-color: #333333;
+    border: 1px solid #555555;
+    gridline-color: #555555;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QTableView::item {
+    padding: 5px;
+}
+
+QTableView::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d;
+}
+
+/* Меню */
+QMenuBar {
+    background-color: #2d2d2d;
+    color: #cccccc;
+    border-bottom: 1px solid #555555;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QMenuBar::item {
+    padding: 5px 10px;
+}
+
+QMenuBar::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d;
+}
+
+QMenu {
+    background-color: #333333;
+    border: 1px solid #555555;
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QMenu::item {
+    padding: 5px 20px;
+}
+
+QMenu::item:selected {
+    background-color: #66ccff;
+    color: #2d2d2d
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Добавление типа:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="all_types_comboBox">
+     <property name="placeholderText">
+      <string>Здесь все ваши типы</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="status_text_lineEdit">
+     <property name="placeholderText">
+      <string>Тип</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="add_type_pushButton">
+     <property name="text">
+      <string>Добавить тип</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="delete_pushButton">
+     <property name="text">
+      <string>Удалить тип</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="status_label">
+     <property name="text">
+      <string>Статус</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
