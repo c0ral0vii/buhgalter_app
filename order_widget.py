@@ -4,7 +4,8 @@ from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Signal, Slot
 from model.orders import create_order
 from area_widget import AreaWidget
-from model.orders import get_order_info, add_areas
+from add_type import AddFormWidget
+from model.orders import get_order_info, add_areas, get_types
 
 class AddOrderWidget(QWidget):
     add_order_signal = Signal(bool)
@@ -33,14 +34,30 @@ class AddOrderWidget(QWidget):
             self.ui.type_comboBox.deleteLater()
             self.ui.order_lineEdit.deleteLater()
             self.ui.label_3.deleteLater()
+            self.ui.add_type_pushButton.deleteLater()
 
         else:
             self.ui.add_order_pushbutton.clicked.connect(self.add_order)
             self.ui.add_area_pushButton.clicked.connect(self.add_area)
             self.ui.add_city_pushButton.clicked.connect(self.add_city)
+            self.ui.add_type_pushButton.clicked.connect(self.create_types)
             self.ui.city.currentTextChanged.connect(self.save_to_cache)
+            self.add_types()
 
         self.current_city = self.ui.city.currentText()
+
+    def create_types(self):
+        self.create_type_ui = AddFormWidget()
+        self.create_type_ui.show()
+        self.create_type_ui.add_form_signal.connect(self.add_types)
+
+    @Slot(bool)
+    def add_types(self):
+        self.ui.type_comboBox.clear()
+        types = get_types()
+
+        for type in types:
+            self.ui.type_comboBox.addItem(type.name)
 
     @Slot()
     def add_area(self):

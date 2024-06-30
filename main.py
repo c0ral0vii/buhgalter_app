@@ -8,7 +8,7 @@ from ui.main_page.main_page import Ui_MainWindow
 from order_widget import AddOrderWidget
 from stop_order import StopOrderWidget
 from order_info import OrderInfoWidget
-from cache_func import RedisCache
+from add_type import AddFormWidget
 
 from model.orders import get_all_orders, get_orders, delete_order, get_archive, archivate, get_order_info, create_city, \
     create_order
@@ -29,6 +29,7 @@ class Application(QMainWindow):
         self.ui.delete_order_button.clicked.connect(self.delete_order)
         self.ui.archive_button.clicked.connect(self.archive)
         self.ui.stop_pushButton.clicked.connect(self.change_status_order)
+        self.ui.add_types_pushButton.clicked.connect(self.add_type)
         self.ui.order_limit_pushButton.clicked.connect(self.reload)
         self.ui.tableView.doubleClicked.connect(self.open_order_info)
 
@@ -36,7 +37,11 @@ class Application(QMainWindow):
         
         self.data = data
         self.reload()
-    
+
+    def add_type(self):
+        self.add_order_ui = AddFormWidget()
+        self.add_order_ui.show()
+
     def open_order_info(self, index):
         if index.isValid():
             row_data = [self.model.item(index.row(), column).text() for column in range(self.model.columnCount())]

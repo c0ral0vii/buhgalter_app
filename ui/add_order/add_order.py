@@ -158,6 +158,13 @@ class Ui_AddForm(object):
 
         self.horizontalLayout.addWidget(self.type_comboBox)
 
+        self.add_type_pushButton = QPushButton(AddForm)
+        self.add_type_pushButton.setObjectName(u"add_type_pushButton")
+
+        self.horizontalLayout.addWidget(self.add_type_pushButton)
+
+        self.horizontalLayout.setStretch(0, 2)
+        self.horizontalLayout.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
@@ -219,7 +226,7 @@ class Ui_AddForm(object):
         self.scrollArea.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1170, 337))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1170, 325))
         self.horizontalLayout_4 = QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.verticalLayout_2 = QVBoxLayout()
@@ -268,6 +275,7 @@ class Ui_AddForm(object):
 
         self.type_comboBox.setCurrentText("")
         self.type_comboBox.setPlaceholderText(QCoreApplication.translate("AddForm", u"\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0442\u0438\u043f", None))
+        self.add_type_pushButton.setText(QCoreApplication.translate("AddForm", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u0438\u043f", None))
         self.label_3.setText(QCoreApplication.translate("AddForm", u"\u0417\u0430\u043a\u0430\u0437\u0447\u0438\u043a:", None))
         self.order_lineEdit.setPlaceholderText(QCoreApplication.translate("AddForm", u"\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u0438\u043c\u044f \u0437\u0430\u043a\u0430\u0437\u0447\u0438\u043a\u0430", None))
         self.label_4.setText(QCoreApplication.translate("AddForm", u"\u0413\u043e\u0440\u043e\u0434:", None))

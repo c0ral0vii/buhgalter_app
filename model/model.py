@@ -190,5 +190,12 @@ class Area(Base):
         session.commit()
 
 
+class Type(Base):
+    __tablename__ = 'types'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False, unique=True)
+
+
 def create_db():
     Base.metadata.create_all(engine)

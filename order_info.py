@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Slot, Signal
 from order_widget import AddOrderWidget
 from ui.order_info.order_info import Ui_CustomerWidget
-from model.orders import get_order_info, change_order
+from model.orders import get_order_info, change_order, get_types
 
 
 class OrderInfoWidget(QWidget):
@@ -23,7 +23,15 @@ class OrderInfoWidget(QWidget):
 
         self.model = QStandardItemModel()
 
+        self.set_types()
         self.get_order_data()
+
+    def set_types(self):
+        self.ui.type_comboBox.clear()
+        self.types = get_types()
+
+        for type in self.types:
+            self.ui.type_comboBox.addItem(type.name)
 
     def change_order_ui(self):
         self.add_order = AddOrderWidget(order_id=self.order_id)

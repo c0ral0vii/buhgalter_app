@@ -1,4 +1,4 @@
-from model.model import Orders, Area, City, Customers, Session
+from model.model import Orders, Area, City, Customers, Session, Type
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select, desc, asc, or_
 
@@ -313,4 +313,37 @@ def add_areas(id: int, data: dict):
         except Exception as e:
             print(e)
             session.rollback()
+            return False
+
+def create_type(name: str):
+    with Session() as session:
+        try:
+            type = Type(
+                name=name
+            )
+
+            session.add(type)
+            session.commit()
+            return True
+        except Exception as e:
+            session.rollback()
+            return False
+
+
+def get_types():
+    with Session() as session:
+        types = session.query(Type).all()
+
+        return types
+
+
+def delete_type(name: str):
+    with Session() as session:
+        try:
+            session.delete(session.query(Type).filter_by(name=name).first())
+            session.commit()
+            return True
+        except Exception as e:
+            session.rollback()
+            print(e)
             return False

@@ -209,9 +209,9 @@ QMenu::item:selected {
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="unload_order_pushButton">
+       <widget class="QPushButton" name="add_types_pushButton">
         <property name="text">
-         <string>Выгрузить заказ</string>
+         <string>Добавить типы</string>
         </property>
        </widget>
       </item>

@@ -2,6 +2,7 @@ from ui.add_order.area import Ui_area_form
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Signal, Slot
 
+
 class AreaWidget(QWidget):
     delete = Signal(int)
 

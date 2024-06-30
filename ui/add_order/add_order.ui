@@ -138,7 +138,7 @@ QMenu::item:selected {
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,0">
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -177,6 +177,13 @@ QMenu::item:selected {
          <string>Наклейки</string>
         </property>
        </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="add_type_pushButton">
+       <property name="text">
+        <string>Добавить тип</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -262,7 +269,7 @@ QMenu::item:selected {
         <x>0</x>
         <y>0</y>
         <width>1170</width>
-        <height>337</height>
+        <height>325</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
