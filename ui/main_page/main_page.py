@@ -198,6 +198,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.add_types_pushButton)
 
+        self.unload_order_pushButton = QPushButton(self.centralwidget)
+        self.unload_order_pushButton.setObjectName(u"unload_order_pushButton")
+
+        self.horizontalLayout.addWidget(self.unload_order_pushButton)
+
         self.reload_button = QPushButton(self.centralwidget)
         self.reload_button.setObjectName(u"reload_button")
 
@@ -232,6 +237,7 @@ class Ui_MainWindow(object):
         self.stop_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0430\u0442\u0443\u0441 \u0437\u0430\u043a\u0430\u0437\u0430", None))
         self.delete_order_button.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043a\u0430\u0437", None))
         self.add_types_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u0438\u043f\u044b", None))
+        self.unload_order_pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u0437\u0430\u043a\u0430\u0437", None))
         self.reload_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c", None))
         self.status.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0443\u0442 \u0431\u0443\u0434\u0443\u0442 \u043e\u0442\u043e\u0431\u0440\u043e\u0436\u0430\u0442\u044c\u0441\u044f \u0432\u0430\u0448\u0438 \u0443\u0441\u043f\u0435\u0448\u043d\u044b\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f(\u0443\u0434\u0430\u043b\u0435\u043d\u0438\u0435, \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u0438 \u0442.\u0434.)", None))
     # retranslateUi

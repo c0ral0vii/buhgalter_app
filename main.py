@@ -32,11 +32,43 @@ class Application(QMainWindow):
         self.ui.add_types_pushButton.clicked.connect(self.add_type)
         self.ui.order_limit_pushButton.clicked.connect(self.reload)
         self.ui.tableView.doubleClicked.connect(self.open_order_info)
-
+        self.ui.unload_order_pushButton.clicked.connect(self.unload_order)
         self.model = QStandardItemModel()
         
         self.data = data
         self.reload()
+
+    def create_file(self, data: dict):
+        print(data)
+        filename = f'ВЫГРУЖЕНЫЙ ЗАКАЗ.txt'
+
+        with open(filename, 'w') as f:
+            f.write(data.get('datetime')[:16])
+            f.write(f'\nСпрут {data.get('type')} - {data.get('customer_name')}\n')
+
+            for city, areas in data.get('cities').items():
+                city_count = areas.get('Итого')
+                f.write(f'\n⭐️{city}:')
+
+                for area, count in areas.items():
+                    if area == 'Итого':
+                        continue
+                    f.write(f'\n•{area} - {count[0]}/{count[1]}')
+                f.write(f'\nИтого: {city_count[0]}/{city_count[1]}')
+                f.write(f'\nОстаток - {city_count[2]}\n')
+
+            f.write(f'\nИтого: {data.get('count')}/{data.get('limit')}')
+            f.write(f'\nОстаток - {data.get('remainder')}')
+        return filename
+
+    def unload_order(self):
+        current_index = self.ui.tableView.currentIndex()
+        if current_index.isValid():
+            row_data = [self.model.data(self.model.index(current_index.row(), column)) for column in
+                        range(self.model.columnCount())]
+            self.ui.status.setText('Создаём файл с заказом...')
+            self.create_file(data=get_order_info(id=row_data[0]))
+
 
     def add_type(self):
         self.add_order_ui = AddFormWidget()
